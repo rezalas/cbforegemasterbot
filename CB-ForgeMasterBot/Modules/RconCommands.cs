@@ -279,7 +279,7 @@ namespace CB.DiscordApps.ForgeMasterBot.Modules
             {
                 if(success == false)
                 {
-                    builder.AppendLine("I spilled my beer during processing... @rezalas#2651 help!");
+                    builder.AppendLine($"I spilled my beer during processing... @{Settings.AdminDiscordId} help!");
                 }
 
                 builder.AppendLine("```");

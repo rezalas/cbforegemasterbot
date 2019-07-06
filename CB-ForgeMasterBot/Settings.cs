@@ -15,19 +15,17 @@ namespace CB.DiscordApps.ForgeMasterBot
 
         private static Configuration _Configuration;
         public static string Token => _Configuration.DiscordToken;
+        public static string AdminDiscordId => _Configuration.AdminDiscordId;
 
         public static List<GameServer> ServerList { get => _Configuration.Servers; }
 
-
         public static void LoadServerConfig()
         {
-            List<GameServer> Servers;
             try
             {
                 using (StreamReader fileStream = File.OpenText(_ConfigFileLoc))
                 {
-                    string fileText = fileStream.ReadToEnd();
-                    _Configuration = JsonConvert.DeserializeObject<Configuration>(fileText);
+                    _Configuration = JsonConvert.DeserializeObject<Configuration>(fileStream.ReadToEnd());
                 }
 
             }
@@ -44,6 +42,11 @@ namespace CB.DiscordApps.ForgeMasterBot
             if(string.IsNullOrWhiteSpace(server.Password))
             {
                 server.Password = _Configuration.DefaultRCONPwd;
+            }
+            
+            if(string.IsNullOrWhiteSpace(_Configuration.ServerExternalAddressOverride) == false)
+            {
+                server.ServerExternalAddress = _Configuration.ServerExternalAddressOverride;
             }
 
             if(await RCONConnector.UpdateStatus(server))

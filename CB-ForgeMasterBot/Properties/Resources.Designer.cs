@@ -59,5 +59,14 @@ namespace CB.DiscordApps.ForgeMasterBot.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Help_help {
+            get {
+                return ResourceManager.GetString("Help-help", resourceCulture);
+            }
+        }
     }
 }

@@ -16,6 +16,12 @@ namespace CB.DiscordApps.ForgeMasterBot.Models
 
         public string GameName { get; set; } = string.Empty;
 
+        /// <summary>
+        /// When provided overrides the listed connection address when providing steam links.
+        /// Best used when your bot is behind the same firewall as your server.
+        /// </summary>
+        public string ServerExternalAddress { get; set; }
+
         [JsonIgnore]
         public RCON RConConnector { get; set; }
 
@@ -53,7 +59,7 @@ namespace CB.DiscordApps.ForgeMasterBot.Models
 
         public string GetPublicLink()
         {
-            return $"steam://connect/gaming.cyberblacksmith.com:{QueryPort}";
+            return $"steam://connect/{ServerExternalAddress ?? Address }:{QueryPort}";
         }
     }
 }
