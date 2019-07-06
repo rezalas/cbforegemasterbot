@@ -1,0 +1,6 @@
+﻿bin/
+obj/
+*.user
+**/logs
+properties/PublishProfiles/
+appsettings.json
