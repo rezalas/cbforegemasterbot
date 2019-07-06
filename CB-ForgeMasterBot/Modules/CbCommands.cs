@@ -40,10 +40,6 @@ namespace CB.DiscordApps.ForgeMasterBot.Modules
         public async Task SnuffItOut()
         {
             await Context.Message.Channel.SendMessageAsync("The fires are low, I'm not long for this night!");
-
-            //var dmChan = await Context.User.GetOrCreateDMChannelAsync();
-            //await dmChan.SendMessageAsync("Test! AHAH!");
-
             await Task.Run(() => 
             {
                 Context.Client.LogoutAsync();
@@ -133,15 +129,16 @@ namespace CB.DiscordApps.ForgeMasterBot.Modules
         {
             var games = Settings.ServerList.Select(x => x.GameName.ToLowerInvariant()).Distinct();
             StringBuilder builder = new StringBuilder();
-            builder.Append("```");
-            builder.AppendLine("Game Name");
-            builder.AppendLine("----------");
+            builder.Append("```")
+                .AppendLine("Game Name")
+                .AppendLine("----------");
+
             foreach(var game in games)
             {
                 builder.AppendLine($"{game}");
             }
-            builder.Append("```");
 
+            builder.Append("```");
             await Context.Channel.SendMessageAsync(builder.ToString());
         }
 
@@ -168,7 +165,7 @@ namespace CB.DiscordApps.ForgeMasterBot.Modules
                 StringBuilder builder = new StringBuilder();
                 builder.Append("```");
 
-                var servers = string.IsNullOrWhiteSpace(gameName) ? Settings.ServerList : Settings.ServerList.Where(x => string.Equals(x.GameName.Trim(), gameName.Trim(), StringComparison.InvariantCultureIgnoreCase));
+                var servers = FilterServersByGame(gameName);
 
                 if (string.IsNullOrWhiteSpace(gameName) == false && servers.Count() == 0)
                 {
@@ -254,7 +251,7 @@ namespace CB.DiscordApps.ForgeMasterBot.Modules
             builder.Append("```"); // code block formatter for discord
             int count = 1;
 
-            var servers = string.IsNullOrWhiteSpace(gameName) ? Settings.ServerList : Settings.ServerList.Where(x => string.Equals(x.GameName.Trim(), gameName.Trim(), StringComparison.InvariantCultureIgnoreCase));
+            var servers = FilterServersByGame(gameName);
 
             if(string.IsNullOrWhiteSpace(gameName) == false && servers.Count() == 0)
             {
@@ -293,6 +290,18 @@ namespace CB.DiscordApps.ForgeMasterBot.Modules
                 msg = "Swear all you want but I don't age and you're a meat sack.";
                 await Context.Channel.SendMessageAsync(msg);
             }
+        }
+
+        private IEnumerable<GameServer> FilterServersByGame(string gameName)
+        {
+            if(string.IsNullOrWhiteSpace(gameName))
+            {
+                return Settings.ServerList;
+            }
+
+            gameName = gameName.Trim();
+
+            return Settings.ServerList.Where(x => string.Equals(x.GameName.Trim(), gameName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         private GameServer EvaluateServerByString(string serverName)
