@@ -1,0 +1,19 @@
+{
+  "DefaultRCONPwd": "",
+  "DiscordToken": "",
+  "AdminDiscordId": "",
+  "ServerExternalAddressOverride": "",
+  "Servers": [
+    {
+      "Name": "Demo Server",
+      "ShortName": "DMO",
+      "Address": "127.0.0.1",
+      "QueryPort": 27015,
+      "RConPort": 27016,
+      "Password": "",
+      "IsReachable": true,
+      "GameName": "DemoGame",
+      "ServerExternalAddress": ""
+    }
+  ]
+}

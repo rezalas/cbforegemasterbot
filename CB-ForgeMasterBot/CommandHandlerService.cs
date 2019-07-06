@@ -17,16 +17,16 @@ namespace CB.DiscordApps.ForgeMasterBot
         {
             _Client = services.GetRequiredService<DiscordSocketClient>();
             _CommandService = services.GetRequiredService<CommandService>();
-          
+            _Services = services;
+
             RegisterEvents();
-            _CommandService.AddModulesAsync(Assembly.GetEntryAssembly(), services);
+            _CommandService.AddModulesAsync(Assembly.GetEntryAssembly(), _Services);
         }
 
 
         private void RegisterEvents()
         {
-            _Client.MessageReceived += ProcessMessage;
-            
+            _Client.MessageReceived += ProcessMessage;  
         }
 
         private async Task ProcessMessage(SocketMessage socketMessage)
