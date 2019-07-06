@@ -4,3 +4,4 @@ obj/
 **/logs
 properties/PublishProfiles/
 appsettings.json
+!default.appsettings.json
