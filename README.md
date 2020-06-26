@@ -9,20 +9,29 @@ A discord bot with integration support for multiple RCON supprted games.
 This project exists in great part due to the efforts of hard working men and women around the world creating and sharing their
 efforts with all of us. I'd like to thank the team working on Discord.Net, CoreRCON, Serilog, and certainly not least the .Net Core
 team and .Net Foundation. Their work powers this bot to a great degree and as such should be recognized.
-	
 
-### Requirements
+### Servers
 
-In order to properly build this bot, you need access to the CoreRCON files which should be downloaded to your computer somewhere.
-You should be able to find the package on github and save it to your computer in a location of your choosing. Once you have, 
-modify the hint path for it in CB-ForgeMasterBot.csproj which looks like the following
+Servers are stored in appsettings.json which is created on first launch if it doesn't exist already. A default settings file is provided with the proper formatting and available fields. Default options are provided if you don't want to provide individual settings for each server when you create them. These defaults are loaded on save when a server is added to the list. *_HOWEVER_: Please note that passwords are NOT stored securely, and while a default password field is provided you should only be using it if your RCON is not externally accessible and the bot is hosted locally to protect both from external reads. If you need to host this externally, you need to change how this data is all stored and secure it properly.* The following server options are provided:
 
+```json
+{
+  "DefaultRCONPwd": "",
+  "DiscordToken": "",
+  "AdminDiscordId": "",
+  "ServerExternalAddressOverride": "",
+  "Servers": [
+    {
+      "Name": "Demo Server",
+      "ShortName": "DMO",
+      "Address": "127.0.0.1",
+      "QueryPort": 27015,
+      "RConPort": 27016,
+      "Password": "",
+      "IsReachable": true,
+      "GameName": "DemoGame",
+      "ServerExternalAddress": ""
+    }
+  ]
+}
 ```
-  <ItemGroup>
-    <Reference Include="CoreRCON">
-      <HintPath>E:\users\paul\Documents\GitHub\CoreRCON\src\CoreRCON\bin\Release\netstandard2.0\CoreRCON.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-```
-
-Change the hintpath to target your actual path for the release file, otherwise you're going to have a few issues building.
