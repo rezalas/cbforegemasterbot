@@ -1,5 +1,4 @@
-﻿using CB.DiscordApps.ForgeMasterBot;
-using CB.DiscordApps.ForgeMasterBot.Models;
+﻿using CB.DiscordApps.ForgeMasterBot.Models;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;

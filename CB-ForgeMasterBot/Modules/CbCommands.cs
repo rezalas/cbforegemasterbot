@@ -109,13 +109,16 @@ namespace CB.DiscordApps.ForgeMasterBot.Modules
                 ShortName = shortName.ToUpper(),
                 Address = Settings.ServerList.First().Address,
                 QueryPort = queryPort,
-                RConPort = rconPort
+                RConPort = rconPort,
+                GameName = gameName
             };
 
             await Context.Channel.SendMessageAsync("I'll see if I can visit there..");
             if (await Settings.AddServer(newServer))
             {
-                await Context.Channel.SendMessageAsync("Sure I'll write that down.");
+                await Context.Channel.SendMessageAsync($"Sure I'll write that down. So it's called " +
+                    $" {newServer.Name} ({newServer.ShortName}) at {newServer.Address} " +
+                    $"their QP is {newServer.QueryPort} RP is {newServer.RConPort} and they play {newServer.GameName} there.");
                 Settings.SaveServerConfig();
             }
             else
